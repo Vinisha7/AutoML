@@ -15,6 +15,7 @@ with st.sidebar:
 
 if os.path.exists("sourcedata.csv"):
     df = pd.read_csv("sourcedata.csv", index_col=None)
+    
 if choice == "Upload":
     st.title("Upload Your Data for Modelling!")
     file = st.file_uploader("Upload Your Dataset Here")
