@@ -37,7 +37,7 @@ if choice == "ML":
         setup(df, target=target, silent=True)
         setup_df = pull()
         st.info("This is the ML Experiment settings")
-        st.dataframe(setup_df)
+        st.write(setup_df)
         best_model = compare_models()
         compare_df = pull()
         st.info("This is the ML Model")
