@@ -34,7 +34,7 @@ if choice == "ML":
     st.title("Machine Learning!")
     target = st.selectbox("Select your Target",df.columns)
     if st.button("Train model"):
-        setup(df.astype(str), target=target, silent=True)
+        setup(df.astype(str), target=target.astype(str), silent=True)
         setup_df = pull()
         st.info("This is the ML Experiment settings")
         st.write(setup_df)
