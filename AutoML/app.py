@@ -19,6 +19,7 @@ if os.path.exists("sourcedata.csv"):
 if choice == "Upload":
     st.title("Upload Your Data for Modelling!")
     file = st.file_uploader("Upload Your Dataset Here")
+    # file = 'C://Users/ponne/OneDrive/Desktop/titanic.csv'
     if file:
         df=pd.read_csv(file, index_col=None)
         df.to_csv("sourcedata.csv",index=None)
@@ -40,7 +41,7 @@ if choice == "ML":
         best_model = compare_models()
         compare_df = pull()
         st.info("This is the ML Model")
-        st.dataframe(compare_df)
+        st.write(compare_df)
         best_model
         save_model(best_model, 'best_model')
 
