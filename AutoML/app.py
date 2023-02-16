@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
+import joblib
 
 #Importing profiling capability
 import pandas_profiling
@@ -23,7 +24,7 @@ if choice == "Upload":
     if file:
         df=pd.read_csv(file, index_col=None)
         df.to_csv("sourcedata.csv",index=None)
-        st.dataframe(df)
+        st.write(df)
 
 if choice == "Profiling":
     st.title("Automated Exploratory Data Analysis")
@@ -32,9 +33,9 @@ if choice == "Profiling":
 
 if choice == "ML":
     st.title("Machine Learning!")
-    target = st.selectbox("Select your Target",df.columns)
+    chosen_target = st.selectbox("Select your Target",df.columns)
     if st.button("Train model"):
-        setup(df.astype(str), target=target, silent=True)
+        setup(data=df, target=chosen_target, silent=True)
         setup_df = pull()
         st.info("This is the ML Experiment settings")
         st.write(setup_df)
@@ -42,9 +43,8 @@ if choice == "ML":
         compare_df = pull()
         st.info("This is the ML Model")
         st.write(compare_df)
-        best_model
-        save_model(best_model, 'best_model')
-
+        joblib.dump(best_model, 'best_model.joblib')
+ 
 if choice == "Download":
-    with open("best_model.pkl", 'rb') as f:
+     with open("best_model.joblib", 'rb') as f:
         st.download_button("Download the Model", f, "trained_model.pkl")
