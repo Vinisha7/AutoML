@@ -24,7 +24,7 @@ if choice == "Upload":
     if file:
         df=pd.read_csv(file, index_col=None)
         df.to_csv("sourcedata.csv",index=None)
-        st.write(df)
+        st.dataframe(df)
 
 if choice == "Profiling":
     st.title("Automated Exploratory Data Analysis")
@@ -35,16 +35,16 @@ if choice == "ML":
     st.title("Machine Learning!")
     chosen_target = st.selectbox("Select your Target",df.columns)
     if st.button("Train model"):
-        setup(data=df, target=chosen_target, silent=True)
-        setup_df = pull()
+        setup_df = setup(df, target=chosen_target, silent=True)
         st.info("This is the ML Experiment settings")
         st.write(setup_df)
         best_model = compare_models()
-        compare_df = pull()
-        st.info("This is the ML Model")
-        st.write(compare_df)
+        st.write(best_model)
+        # compare_df = pull()
+        # st.info("This is the ML Model")
+        # st.dataframe(compare_df)
         joblib.dump(best_model, 'best_model.joblib')
  
 if choice == "Download":
      with open("best_model.joblib", 'rb') as f:
-        st.download_button("Download the Model", f, "trained_model.pkl")
+        st.download_button("Download the Model", f, "trained_model.joblib")
