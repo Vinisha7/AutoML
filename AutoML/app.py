@@ -31,18 +31,34 @@ if choice == "Profiling":
     profile_report = df.profile_report()
     st_profile_report(profile_report)
 
-if choice == "ML":
-    st.title("Machine Learning!")
-    chosen_target = st.selectbox("Select your Target",df.columns)
-    if st.button("Train model"):
-        setup_df = setup(df, target=chosen_target, silent=True)
-        st.info("This is the ML Experiment settings")
-        st.write(setup_df)
-        best_model = compare_models()
-        st.write(best_model)
+# if choice == "ML":
+#     st.title("Machine Learning!")
+#     chosen_target = st.selectbox("Select your Target",df.columns)
+#     if st.button("Train model"):
+#         setup_df = setup(df, target=chosen_target, silent=True)
+#         st.info("This is the ML Experiment settings")
+#         st.write(setup_df)
+#         best_model = compare_models()
+#         st.write(best_model)
         # compare_df = pull()
         # st.info("This is the ML Model")
         # st.dataframe(compare_df)
+if choice == "ML":
+    st.title("Machine Learning!")
+    chosen_target = st.selectbox("Select your Target", df.columns)
+
+    if st.button("Train model"):
+        with st.spinner('Training the model...'):
+            setup_df = setup(df, target=chosen_target, silent=True)
+            best_model = compare_models()
+            save_model(best_model, 'best_model')
+            st.success('Model trained successfully!')
+
+        st.info("This is the ML Experiment settings")
+        st.write(setup_df)
+
+        st.info("This is the ML Model")
+        st.write(best_model)        
         joblib.dump(best_model, 'best_model.joblib')
  
 if choice == "Download":
