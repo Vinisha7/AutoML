@@ -54,8 +54,8 @@ if choice == "ML":
             save_model(best_model, 'best_model')
             st.success('Model trained successfully!')
 
-        st.info("This is the ML Experiment settings")
-        st.write(setup_df)
+        # st.info("This is the ML Experiment settings")
+        # st.write(setup_df)
 
         st.info("This is the ML Model")
         st.write(best_model)        
